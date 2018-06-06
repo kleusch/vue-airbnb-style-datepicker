@@ -60,6 +60,8 @@
                       'asd__day--empty': dayNumber === 0,
                       'asd__day--disabled': isDisabled(fullDate),
                       'asd__day--selected': selectedDate1 === fullDate || selectedDate2 === fullDate,
+                      'asd__day--selected-date-one': selectedDate1 === fullDate,
+                      'asd__day--selected-date-two': selectedDate2 === fullDate,
                       'asd__day--in-range': isInRange(fullDate)
                     }"
                     :style="getDayStyles(fullDate)"
@@ -186,7 +188,9 @@ export default {
       return {
         'asd__wrapper--datepicker-open': this.showDatepicker,
         'asd__wrapper--full-screen': this.showFullscreen,
-        'asd__wrapper--inline': this.inline
+        'asd__wrapper--inline': this.inline,
+        'asd__wrapper--selected-date-one': this.selectedDate1,
+        'asd__wrapper--selected-date-two': this.selectedDate2
       }
     },
     wrapperStyles() {
