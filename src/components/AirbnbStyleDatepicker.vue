@@ -343,27 +343,8 @@ export default {
   },
   methods: {
     getDayStyles(date) {
-      const isSelected = this.isSelected(date)
-      const isInRange = this.isInRange(date)
-      const isDisabled = this.isDisabled(date)
-
       let styles = {
-        width: (this.width - 30) / 7 + 'px',
-        background: isSelected
-          ? this.colors.selected
-          : isInRange ? this.colors.inRange : '',
-        color: isSelected
-          ? this.colors.selectedText
-          : isInRange ? this.colors.selectedText : this.colors.text,
-        border: isSelected
-          ? '1px double ' + this.colors.selected
-          : isInRange && this.allDatesSelected
-            ? '1px double ' + this.colors.inRangeBorder
-            : ''
-      }
-
-      if (isDisabled) {
-        styles.background = this.colors.disabled
+        width: (this.width - 30) / 7 + 'px'
       }
       return styles
     },
@@ -869,6 +850,17 @@ $transition-time: 0.3s;
       background-color: rgb(0, 166, 153);
       border: 1px double rgb(0, 166, 153);
       color: #fff;
+      &:hover {
+          background-color: rgb(0, 166, 153);
+      }
+    }
+    &--in-range {
+      background-color: rgb(102, 226, 218);
+      border: 1px double rgb(51, 218, 205);
+      color: #fff;
+      &:hover {
+          background-color: rgb(102, 226, 218);
+      }
     }
     &--disabled,
     &--empty {
