@@ -60,8 +60,8 @@
                       'asd__day--empty': dayNumber === 0,
                       'asd__day--disabled': isDisabled(fullDate),
                       'asd__day--selected': selectedDate1 === fullDate || selectedDate2 === fullDate,
-                      'asd__day--selected-date-one': selectedDate1 === fullDate,
-                      'asd__day--selected-date-two': selectedDate2 === fullDate,
+                      'asd__day--selected-date-one': selectedDate1,
+                      'asd__day--selected-date-two': selectedDate2,
                       'asd__day--in-range': isInRange(fullDate)
                     }"
                     :style="getDayStyles(fullDate)"
@@ -565,11 +565,9 @@ export default {
       if (this.isSelectingDate1) {
         this.selectedDate1 = date
         this.isSelectingDate1 = false
-
       } else {
         this.selectedDate2 = date
         this.isSelectingDate1 = true
-
       }
     },
     setHoverDate(date) {
@@ -600,6 +598,9 @@ export default {
       }
       return isBefore(date, this.minDate)
     },
+    isBeforeSelectedDate1WhileSelectingDate2(date) {
+      return isBefore(date, this.selectedDate1) && !this.selectedDate2
+    },
     isAfterEndDate(date) {
       if (!this.endDate) {
         return false
@@ -614,6 +615,7 @@ export default {
       return (
         this.isDateDisabled(date) ||
         this.isBeforeMinDate(date) ||
+        this.isBeforeSelectedDate1WhileSelectingDate2(date) ||
         this.isAfterEndDate(date)
       )
     },

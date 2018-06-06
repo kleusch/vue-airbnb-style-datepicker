@@ -1657,8 +1657,8 @@
                 'asd__day--empty': dayNumber === 0,
                 'asd__day--disabled': _vm.isDisabled(fullDate),
                 'asd__day--selected': _vm.selectedDate1 === fullDate || _vm.selectedDate2 === fullDate,
-                'asd__day--selected-date-one': _vm.selectedDate1 === fullDate,
-                'asd__day--selected-date-two': _vm.selectedDate2 === fullDate,
+                'asd__day--selected-date-one': _vm.selectedDate1,
+                'asd__day--selected-date-two': _vm.selectedDate2,
                 'asd__day--in-range': _vm.isInRange(fullDate)
               },
               style: _vm.getDayStyles(fullDate),
@@ -2191,6 +2191,9 @@
 
         return is_before(date, this.minDate);
       },
+      isBeforeSelectedDate1WhileSelectingDate2: function isBeforeSelectedDate1WhileSelectingDate2(date) {
+        return is_before(date, this.selectedDate1) && !this.selectedDate2;
+      },
       isAfterEndDate: function isAfterEndDate(date) {
         if (!this.endDate) {
           return false;
@@ -2203,7 +2206,7 @@
         return isDisabled;
       },
       isDisabled: function isDisabled(date) {
-        return this.isDateDisabled(date) || this.isBeforeMinDate(date) || this.isAfterEndDate(date);
+        return this.isDateDisabled(date) || this.isBeforeMinDate(date) || this.isBeforeSelectedDate1WhileSelectingDate2(date) || this.isAfterEndDate(date);
       },
       previousMonth: function previousMonth() {
         this.startingDate = this.subtractMonths(this.months[0].firstDateOfMonth);
