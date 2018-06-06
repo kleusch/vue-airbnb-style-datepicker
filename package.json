@@ -20,7 +20,8 @@
     "t": "jest --watch",
     "test": "jest --watch",
     "test-once": "jest --runInBand",
-    "test-debug": "node --inspect --inspect-brk node_modules/jest/bin/jest.js"
+    "test-debug": "node --inspect --inspect-brk node_modules/jest/bin/jest.js",
+    "prepare": "npm run build"
   },
   "author": "MikaelEdebro <mikael.edebro@gmail.com>",
   "license": "MIT",
