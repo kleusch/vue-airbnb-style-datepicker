@@ -855,7 +855,6 @@ $transition-time: 0.3s;
 
   &__day {
     $size: 38px;
-    line-height: $size;
     height: $size;
     padding: 0;
     overflow: hidden;
@@ -865,6 +864,11 @@ $transition-time: 0.3s;
       &:hover {
         background-color: #e4e7e7;
       }
+    }
+    &--selected {
+      background-color: rgb(0, 166, 153);
+      border: 1px double rgb(0, 166, 153);
+      color: #fff;
     }
     &--disabled,
     &--empty {
@@ -876,6 +880,7 @@ $transition-time: 0.3s;
     }
     &--empty {
       border: none;
+      background-color: transparent;
     }
     &--disabled {
       &:hover {
