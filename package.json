@@ -6,7 +6,7 @@
   "module": "dist/vue-airbnb-style-datepicker.es.js",
   "unpkg": "dist/vue-airbnb-style-datepicker.js",
   "repository": {
-    "url": "kleuschner/vue-airbnb-style-datepicker",
+    "url": "kleusch/vue-airbnb-style-datepicker",
     "type": "git"
   },
   "files": [
