@@ -1629,7 +1629,9 @@
           attrs: {
             "role": "presentation"
           }
-        }, [_c('thead', [_c('tr', _vm._l(_vm.daysShort, function (day) {
+        }, [_c('thead', [_c('tr', {
+          staticClass: "asd__day-titles"
+        }, _vm._l(_vm.daysShort, function (day) {
           return _c('th', {
             key: day,
             staticClass: "asd__day-title"
