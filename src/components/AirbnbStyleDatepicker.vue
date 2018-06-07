@@ -41,7 +41,7 @@
             <table class="asd__month-table" role="presentation">
               <thead>
                 <tr class="asd__day-titles">
-                  <th class="asd__day-title" v-for="day in daysShort" :key="day">{{ day }}</th>
+                  <th class="asd__day-title" v-for="(day, index) in daysShort" :key="`day-${index}`">{{ day }}</th>
                 </tr>
               </thead>
               <tbody>
@@ -158,7 +158,8 @@ export default {
         'Saturday',
         'Sunday'
       ],
-      daysShort: ['Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun'],
+      daysShort: ['M', 'D', 'M', 'D', 'F', 'S', 'S'],
+      //daysShort: ['Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun'],
       texts: {
         apply: 'Apply',
         cancel: 'Cancel'

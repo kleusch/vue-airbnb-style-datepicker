@@ -1631,9 +1631,9 @@
           }
         }, [_c('thead', [_c('tr', {
           staticClass: "asd__day-titles"
-        }, _vm._l(_vm.daysShort, function (day) {
+        }, _vm._l(_vm.daysShort, function (day, index) {
           return _c('th', {
-            key: day,
+            key: "day-".concat(index),
             staticClass: "asd__day-title"
           }, [_vm._v(_vm._s(day))]);
         }))]), _vm._v(" "), _c('tbody', _vm._l(month.weeks, function (week, index) {
@@ -1786,7 +1786,8 @@
         sundayFirst: false,
         monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
         days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-        daysShort: ['Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun'],
+        daysShort: ['M', 'D', 'M', 'D', 'F', 'S', 'S'],
+        //daysShort: ['Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun'],
         texts: {
           apply: 'Apply',
           cancel: 'Cancel'
