@@ -40,7 +40,7 @@
 
             <table class="asd__month-table" role="presentation">
               <thead>
-                <tr>
+                <tr class="asd__day-titles">
                   <th class="asd__day-title" v-for="day in daysShort" :key="day">{{ day }}</th>
                 </tr>
               </thead>
