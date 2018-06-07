@@ -60,8 +60,8 @@
                       'asd__day--empty': dayNumber === 0,
                       'asd__day--disabled': isDisabled(fullDate),
                       'asd__day--selected': selectedDate1 === fullDate || selectedDate2 === fullDate,
-                      'asd__day--selected-date-one': selectedDate1,
-                      'asd__day--selected-date-two': selectedDate2,
+                      'asd__day--selected-date-one': selectedDate1 === fullDate,
+                      'asd__day--selected-date-two': selectedDate2 === fullDate,
                       'asd__day--in-range': isInRange(fullDate)
                     }"
                     :style="getDayStyles(fullDate)"
