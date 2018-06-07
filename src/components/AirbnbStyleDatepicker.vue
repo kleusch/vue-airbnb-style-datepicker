@@ -54,6 +54,7 @@
                     :class="{
                       'asd__day--enabled': dayNumber !== 0,
                       'asd__day--empty': dayNumber === 0,
+                      'asd__day--default': isDefault(fullDate),
                       'asd__day--disabled': isDisabled(fullDate),
                       'asd__day--selected': selectedDate1 === fullDate || selectedDate2 === fullDate,
                       'asd__day--selected-date-one': selectedDate1 === fullDate,
@@ -614,6 +615,14 @@ export default {
         this.isBeforeMinDate(date) ||
         this.isBeforeSelectedDate1WhileSelectingDate2(date) ||
         this.isAfterEndDate(date)
+      )
+    },
+    isDefault(date) {
+      return (
+        !this.isDisabled(date) &&
+        this.dayNumber !== 0 &&
+        !this.isSelected(date) &&
+        !this.isInRange(date)
       )
     },
     previousMonth() {

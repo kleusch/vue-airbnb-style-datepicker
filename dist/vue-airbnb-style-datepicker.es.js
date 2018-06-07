@@ -321,6 +321,7 @@ var AirbnbStyleDatepicker = {
             class: {
               'asd__day--enabled': dayNumber !== 0,
               'asd__day--empty': dayNumber === 0,
+              'asd__day--default': _vm.isDefault(fullDate),
               'asd__day--disabled': _vm.isDisabled(fullDate),
               'asd__day--selected': _vm.selectedDate1 === fullDate || _vm.selectedDate2 === fullDate,
               'asd__day--selected-date-one': _vm.selectedDate1 === fullDate,
@@ -874,6 +875,9 @@ var AirbnbStyleDatepicker = {
     },
     isDisabled: function isDisabled(date) {
       return this.isDateDisabled(date) || this.isBeforeMinDate(date) || this.isBeforeSelectedDate1WhileSelectingDate2(date) || this.isAfterEndDate(date);
+    },
+    isDefault: function isDefault(date) {
+      return !this.isDisabled(date) && this.dayNumber !== 0 && !this.isSelected(date) && !this.isInRange(date);
     },
     previousMonth: function previousMonth() {
       this.startingDate = this.subtractMonths(this.months[0].firstDateOfMonth);
