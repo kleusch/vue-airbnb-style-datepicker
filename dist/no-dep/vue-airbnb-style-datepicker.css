@@ -70,20 +70,9 @@
       width: 19px;
       fill: #82888a; }
 
-.asd__days-legend {
-  position: absolute;
-  top: 50px;
-  left: 10px;
-  padding: 0 10px; }
-
 .asd__day-title {
-  display: inline-block;
-  width: 14.28571%;
-  text-align: center;
-  margin-bottom: 4px;
   color: rgba(0, 0, 0, 0.7);
   font-size: 0.8em;
-  margin-left: -1px;
   text-transform: lowercase; }
 
 .asd__month-table {

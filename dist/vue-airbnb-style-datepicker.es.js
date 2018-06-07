@@ -278,20 +278,7 @@ var AirbnbStyleDatepicker = {
       attrs: {
         "d": "M694.4 242.4l249.1 249.1c11 11 11 21 0 32L694.4 772.7c-5 5-10 7-16 7s-11-2-16-7c-11-11-11-21 0-32l210.1-210.1H67.1c-13 0-23-10-23-23s10-23 23-23h805.4L662.4 274.5c-21-21.1 11-53.1 32-32.1z"
       }
-    })])])]), _vm._v(" "), _vm._l(_vm.showMonths, function (month, index) {
-      return _c('div', {
-        key: month,
-        staticClass: "asd__days-legend",
-        style: [_vm.monthWidthStyles, {
-          left: _vm.width * index + 'px'
-        }]
-      }, _vm._l(_vm.daysShort, function (day) {
-        return _c('div', {
-          key: day,
-          staticClass: "asd__day-title"
-        }, [_vm._v(_vm._s(day))]);
-      }));
-    })], 2), _vm._v(" "), _c('div', {
+    })])])])]), _vm._v(" "), _c('div', {
       staticClass: "asd__inner-wrapper",
       style: _vm.innerStyles
     }, [_c('transition-group', {
@@ -314,7 +301,12 @@ var AirbnbStyleDatepicker = {
         attrs: {
           "role": "presentation"
         }
-      }, [_c('tbody', _vm._l(month.weeks, function (week, index) {
+      }, [_c('thead', [_c('tr', _vm._l(_vm.daysShort, function (day) {
+        return _c('th', {
+          key: day,
+          staticClass: "asd__day-title"
+        }, [_vm._v(_vm._s(day))]);
+      }))]), _vm._v(" "), _c('tbody', _vm._l(month.weeks, function (week, index) {
         return _c('tr', {
           key: index,
           staticClass: "asd__week"
