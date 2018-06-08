@@ -59,7 +59,8 @@
                       'asd__day--selected': selectedDate1 === fullDate || selectedDate2 === fullDate,
                       'asd__day--selected-date-one': selectedDate1 === fullDate,
                       'asd__day--selected-date-two': selectedDate2 === fullDate,
-                      'asd__day--in-range': isInRange(fullDate)
+                      'asd__day--in-range': isInRange(fullDate),
+                      'asd__day--holiday': isHoliday(fullDate)
                     }"
                     :style="getDayStyles(fullDate)"
                     @mouseover="() => { setHoverDate(fullDate) }"
@@ -119,7 +120,8 @@ export default {
       type: Boolean,
       default: () => process.env.NODE_ENV === 'test'
     },
-    trigger: { type: Boolean, default: false }
+    trigger: { type: Boolean, default: false },
+    holidays: { type: Array }
   },
   data() {
     return {
@@ -624,6 +626,10 @@ export default {
         !this.isSelected(date) &&
         !this.isInRange(date)
       )
+    },
+    isHoliday(date) {
+      console.log('holiday')
+      return this.holidays && this.holidays.indexOf(date) > -1
     },
     previousMonth() {
       this.startingDate = this.subtractMonths(this.months[0].firstDateOfMonth)

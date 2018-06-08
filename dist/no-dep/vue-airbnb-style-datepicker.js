@@ -332,7 +332,8 @@
                 'asd__day--selected': _vm.selectedDate1 === fullDate || _vm.selectedDate2 === fullDate,
                 'asd__day--selected-date-one': _vm.selectedDate1 === fullDate,
                 'asd__day--selected-date-two': _vm.selectedDate2 === fullDate,
-                'asd__day--in-range': _vm.isInRange(fullDate)
+                'asd__day--in-range': _vm.isInRange(fullDate),
+                'asd__day--holiday': _vm.isHoliday(fullDate)
               },
               style: _vm.getDayStyles(fullDate),
               attrs: {
@@ -446,6 +447,9 @@
       trigger: {
         type: Boolean,
         default: false
+      },
+      holidays: {
+        type: Array
       }
     },
     data: function data() {
@@ -884,6 +888,10 @@
       },
       isDefault: function isDefault(date) {
         return !this.isDisabled(date) && this.dayNumber !== 0 && !this.isSelected(date) && !this.isInRange(date);
+      },
+      isHoliday: function isHoliday(date) {
+        console.log('holiday');
+        return this.holidays && this.holidays.indexOf(date) > -1;
       },
       previousMonth: function previousMonth() {
         this.startingDate = this.subtractMonths(this.months[0].firstDateOfMonth);
