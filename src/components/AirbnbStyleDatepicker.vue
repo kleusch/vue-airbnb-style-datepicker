@@ -71,7 +71,7 @@
                       v-if="dayNumber"
                       :date="fullDate"
                       :disabled="isDisabled(fullDate)"
-                      @click="() => { selectDate(fullDate) }"
+                      @click="onDayClick(fullDate)"
                     >{{ dayNumber }}</button>
                   </td>
                 </tr>
@@ -174,6 +174,7 @@ export default {
       selectedDate1: '',
       selectedDate2: '',
       isSelectingDate1: true,
+      initial: true,
       hoverDate: '',
       alignRight: false,
       triggerPosition: {},
@@ -191,7 +192,8 @@ export default {
         'asd__wrapper--full-screen': this.showFullscreen,
         'asd__wrapper--inline': this.inline,
         'asd__wrapper--selected-date-one': this.selectedDate1,
-        'asd__wrapper--selected-date-two': this.selectedDate2
+        'asd__wrapper--selected-date-two': this.selectedDate2,
+        'asd__wrapper--initial': this.initial
       }
     },
     wrapperStyles() {
@@ -735,6 +737,10 @@ export default {
           datepickerWrapper.getBoundingClientRect().width
         this.alignRight = rightPosition > viewportWidth
       })
+    },
+    onDayClick(fullDate) {
+      this.initial = false
+      this.selectDate(fullDate)
     }
   }
 }

@@ -350,8 +350,8 @@ var AirbnbStyleDatepicker = {
               "disabled": _vm.isDisabled(fullDate)
             },
             on: {
-              "click": function click() {
-                _vm.selectDate(fullDate);
+              "click": function click($event) {
+                _vm.onDayClick(fullDate);
               }
             }
           }, [_vm._v(_vm._s(dayNumber))]) : _vm._e()]);
@@ -482,6 +482,7 @@ var AirbnbStyleDatepicker = {
       selectedDate1: '',
       selectedDate2: '',
       isSelectingDate1: true,
+      initial: true,
       hoverDate: '',
       alignRight: false,
       triggerPosition: {},
@@ -499,7 +500,8 @@ var AirbnbStyleDatepicker = {
         'asd__wrapper--full-screen': this.showFullscreen,
         'asd__wrapper--inline': this.inline,
         'asd__wrapper--selected-date-one': this.selectedDate1,
-        'asd__wrapper--selected-date-two': this.selectedDate2
+        'asd__wrapper--selected-date-two': this.selectedDate2,
+        'asd__wrapper--initial': this.initial
       };
     },
     wrapperStyles: function wrapperStyles() {
@@ -993,6 +995,10 @@ var AirbnbStyleDatepicker = {
         var rightPosition = this.triggerElement.getBoundingClientRect().left + datepickerWrapper.getBoundingClientRect().width;
         this.alignRight = rightPosition > viewportWidth;
       });
+    },
+    onDayClick: function onDayClick(fullDate) {
+      this.initial = false;
+      this.selectDate(fullDate);
     }
   }
 };
