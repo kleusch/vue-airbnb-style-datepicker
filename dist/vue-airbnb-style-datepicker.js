@@ -1715,6 +1715,9 @@
       dateTwo: {
         type: [String, Date]
       },
+      selectDate1: {
+        type: Boolean
+      },
       minDate: {
         type: [String, Date]
       },
@@ -1868,6 +1871,9 @@
         // used to watch for changes in props, and update GUI accordingly
         return this.dateOne + this.dateTwo;
       },
+      holidaysPropsCompound: function holidaysPropsCompound() {
+        return this.holidays;
+      },
       isDateTwoBeforeDateOne: function isDateTwoBeforeDateOne() {
         if (!this.dateTwo) {
           return false;
@@ -1885,6 +1891,16 @@
       }
     },
     watch: {
+      holidaysPropsCompound: function holidaysPropsCompound(newValue) {
+        console.log(newValue);
+        console.log(this.holidays);
+        this.holidays = newValue;
+        this.setStartDates();
+        this.generateMonths();
+      },
+      selectDate1: function selectDate1(newValue) {
+        this.isSelectingDate1 = newValue;
+      },
       selectedDate1: function selectedDate1(newValue, oldValue) {
         var newDate = !newValue || newValue === '' ? '' : format_1(newValue, this.dateFormat);
         this.$emit('date-one-selected', newDate);
@@ -2212,7 +2228,6 @@
         return !this.isDisabled(date) && this.dayNumber !== 0 && !this.isSelected(date) && !this.isInRange(date);
       },
       isHoliday: function isHoliday(date) {
-        console.log('holiday');
         return this.holidays && this.holidays.indexOf(date) > -1;
       },
       previousMonth: function previousMonth() {

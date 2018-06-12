@@ -104,6 +104,7 @@ export default {
     triggerElementId: { type: String },
     dateOne: { type: [String, Date], default: format(new Date()) },
     dateTwo: { type: [String, Date] },
+    selectDate1: { type: Boolean },
     minDate: { type: [String, Date] },
     endDate: { type: [String, Date] },
     mode: { type: String, default: 'range' },
@@ -260,6 +261,9 @@ export default {
       // used to watch for changes in props, and update GUI accordingly
       return this.dateOne + this.dateTwo
     },
+    holidaysPropsCompound() {
+      return this.holidays
+    },
     isDateTwoBeforeDateOne() {
       if (!this.dateTwo) {
         return false
@@ -274,6 +278,16 @@ export default {
     }
   },
   watch: {
+    holidaysPropsCompound(newValue) {
+      console.log(newValue)
+      console.log(this.holidays)
+      this.holidays = newValue
+      this.setStartDates()
+      this.generateMonths()
+    },
+    selectDate1(newValue) {
+      this.isSelectingDate1 = newValue
+    },
     selectedDate1(newValue, oldValue) {
       let newDate =
         !newValue || newValue === '' ? '' : format(newValue, this.dateFormat)
@@ -628,7 +642,6 @@ export default {
       )
     },
     isHoliday(date) {
-      console.log('holiday')
       return this.holidays && this.holidays.indexOf(date) > -1
     },
     previousMonth() {
