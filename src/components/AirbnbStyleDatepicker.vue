@@ -572,7 +572,7 @@ export default {
         return
       }
 
-      if (this.selectedDate1 && this.selectedDate2) {
+      if ((this.selectedDate1 && this.selectedDate2) && this.isSelectingDate1) {
         this.selectedDate1 = ''
         this.selectedDate2 = ''
       }
