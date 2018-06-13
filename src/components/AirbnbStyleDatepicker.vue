@@ -285,6 +285,9 @@ export default {
     },
     selectDate1(newValue) {
       this.isSelectingDate1 = newValue
+      if (this.initial && !this.isSelectingDate1) {
+        this.initial = false
+      }
     },
     selectedDate1(newValue, oldValue) {
       let newDate =
