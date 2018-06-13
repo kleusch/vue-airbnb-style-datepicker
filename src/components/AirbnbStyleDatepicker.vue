@@ -281,11 +281,7 @@ export default {
   },
   watch: {
     holidaysPropsCompound(newValue) {
-      console.log(newValue)
-      console.log(this.holidays)
       this.holidays = newValue
-      this.setStartDates()
-      this.generateMonths()
     },
     selectDate1(newValue) {
       this.isSelectingDate1 = newValue

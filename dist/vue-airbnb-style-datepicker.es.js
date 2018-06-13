@@ -566,11 +566,7 @@ var AirbnbStyleDatepicker = {
   },
   watch: {
     holidaysPropsCompound: function holidaysPropsCompound(newValue) {
-      console.log(newValue);
-      console.log(this.holidays);
       this.holidays = newValue;
-      this.setStartDates();
-      this.generateMonths();
     },
     selectDate1: function selectDate1(newValue) {
       this.isSelectingDate1 = newValue;
