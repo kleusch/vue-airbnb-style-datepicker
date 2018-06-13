@@ -57,8 +57,6 @@
                       'asd__day--default': isDefault(fullDate) || initial,
                       'asd__day--disabled': isDisabled(fullDate),
                       'asd__day--selected': selectedDate1 === fullDate || selectedDate2 === fullDate,
-                      'asd__day--selected-date-one': selectedDate1 === fullDate,
-                      'asd__day--selected-date-two': selectedDate2 === fullDate,
                       'asd__day--in-range': isInRange(fullDate),
                       'asd__day--holiday': isHoliday(fullDate)
                     }"
@@ -249,6 +247,9 @@ export default {
     },
     hasMinDate() {
       return !!(this.minDate && this.minDate !== '')
+    },
+    isInitial() {
+      return this.initial
     },
     isRangeMode() {
       return this.mode === 'range'

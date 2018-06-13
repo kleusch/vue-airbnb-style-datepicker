@@ -1652,8 +1652,6 @@
                 'asd__day--default': _vm.isDefault(fullDate) || _vm.initial,
                 'asd__day--disabled': _vm.isDisabled(fullDate),
                 'asd__day--selected': _vm.selectedDate1 === fullDate || _vm.selectedDate2 === fullDate,
-                'asd__day--selected-date-one': _vm.selectedDate1 === fullDate,
-                'asd__day--selected-date-two': _vm.selectedDate2 === fullDate,
                 'asd__day--in-range': _vm.isInRange(fullDate),
                 'asd__day--holiday': _vm.isHoliday(fullDate)
               },
@@ -1859,6 +1857,9 @@
       },
       hasMinDate: function hasMinDate() {
         return !!(this.minDate && this.minDate !== '');
+      },
+      isInitial: function isInitial() {
+        return this.initial;
       },
       isRangeMode: function isRangeMode() {
         return this.mode === 'range';
