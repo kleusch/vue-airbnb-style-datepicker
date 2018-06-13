@@ -1898,6 +1898,10 @@
       },
       selectDate1: function selectDate1(newValue) {
         this.isSelectingDate1 = newValue;
+
+        if (this.initial && !this.isSelectingDate1) {
+          this.initial = false;
+        }
       },
       selectedDate1: function selectedDate1(newValue, oldValue) {
         var newDate = !newValue || newValue === '' ? '' : format_1(newValue, this.dateFormat);
