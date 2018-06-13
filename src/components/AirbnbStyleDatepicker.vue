@@ -54,7 +54,7 @@
                     :class="{
                       'asd__day--enabled': dayNumber !== 0,
                       'asd__day--empty': dayNumber === 0,
-                      'asd__day--default': isDefault(fullDate),
+                      'asd__day--default': isDefault(fullDate) || initial,
                       'asd__day--disabled': isDisabled(fullDate),
                       'asd__day--selected': selectedDate1 === fullDate || selectedDate2 === fullDate,
                       'asd__day--selected-date-one': selectedDate1 === fullDate,
