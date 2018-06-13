@@ -321,7 +321,7 @@ var AirbnbStyleDatepicker = {
             class: {
               'asd__day--enabled': dayNumber !== 0,
               'asd__day--empty': dayNumber === 0,
-              'asd__day--default': _vm.isDefault(fullDate),
+              'asd__day--default': _vm.isDefault(fullDate) || _vm.initial,
               'asd__day--disabled': _vm.isDisabled(fullDate),
               'asd__day--selected': _vm.selectedDate1 === fullDate || _vm.selectedDate2 === fullDate,
               'asd__day--selected-date-one': _vm.selectedDate1 === fullDate,
