@@ -248,9 +248,6 @@ export default {
     hasMinDate() {
       return !!(this.minDate && this.minDate !== '')
     },
-    isInitial() {
-      return this.initial
-    },
     isRangeMode() {
       return this.mode === 'range'
     },
@@ -607,6 +604,9 @@ export default {
           isBefore(date, this.hoverDate) &&
           !this.allDatesSelected)
       )
+    },
+    isInitial() {
+      return this.initial
     },
     isBeforeMinDate(date) {
       if (!this.minDate) {

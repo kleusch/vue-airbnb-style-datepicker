@@ -530,9 +530,6 @@ var AirbnbStyleDatepicker = {
     hasMinDate: function hasMinDate() {
       return !!(this.minDate && this.minDate !== '');
     },
-    isInitial: function isInitial() {
-      return this.initial;
-    },
     isRangeMode: function isRangeMode() {
       return this.mode === 'range';
     },
@@ -874,6 +871,9 @@ var AirbnbStyleDatepicker = {
       }
 
       return isAfter(date, this.selectedDate1) && isBefore(date, this.selectedDate2) || isAfter(date, this.selectedDate1) && isBefore(date, this.hoverDate) && !this.allDatesSelected;
+    },
+    isInitial: function isInitial() {
+      return this.initial;
     },
     isBeforeMinDate: function isBeforeMinDate(date) {
       if (!this.minDate) {

@@ -1858,9 +1858,6 @@
       hasMinDate: function hasMinDate() {
         return !!(this.minDate && this.minDate !== '');
       },
-      isInitial: function isInitial() {
-        return this.initial;
-      },
       isRangeMode: function isRangeMode() {
         return this.mode === 'range';
       },
@@ -2202,6 +2199,9 @@
         }
 
         return is_after(date, this.selectedDate1) && is_before(date, this.selectedDate2) || is_after(date, this.selectedDate1) && is_before(date, this.hoverDate) && !this.allDatesSelected;
+      },
+      isInitial: function isInitial() {
+        return this.initial;
       },
       isBeforeMinDate: function isBeforeMinDate(date) {
         if (!this.minDate) {
