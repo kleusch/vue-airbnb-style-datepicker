@@ -883,7 +883,7 @@ var AirbnbStyleDatepicker = {
       return isBefore(date, this.minDate);
     },
     isBeforeSelectedDate1WhileSelectingDate2: function isBeforeSelectedDate1WhileSelectingDate2(date) {
-      return isBefore(date, this.selectedDate1) && !this.selectedDate2;
+      return isBefore(date, this.selectedDate1) && (!this.selectedDate2 || !this.isSelectingDate1);
     },
     isAfterEndDate: function isAfterEndDate(date) {
       if (!this.endDate) {
