@@ -659,7 +659,6 @@ export default {
       this.$emit('previous-month', this.visibleMonths)
     },
     jumpToDate(date) {
-      date = '2018-08-01'
       this.startingDate = subMonths(date, 1)
       let month = this.getMonth(date)
       let visibleMonths = this.visibleMonths

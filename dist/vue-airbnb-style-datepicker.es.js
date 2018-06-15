@@ -926,7 +926,6 @@ var AirbnbStyleDatepicker = {
     jumpToDate: function jumpToDate(date) {
       var _this2 = this;
 
-      date = '2018-08-01';
       this.startingDate = subMonths(date, 1);
       var month = this.getMonth(date);
       var visibleMonths = this.visibleMonths;
