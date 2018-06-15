@@ -372,6 +372,13 @@
           "click": _vm.closeDatepickerCancel
         }
       }, [_vm._v(_vm._s(_vm.texts.cancel))]), _vm._v(" "), _c('button', {
+        attrs: {
+          "type": "button"
+        },
+        on: {
+          "click": _vm.jumpToDate
+        }
+      }, [_vm._v("wurst")]), _vm._v(" "), _c('button', {
         style: {
           color: _vm.colors.selected
         },
@@ -922,19 +929,23 @@
         this.months.splice(this.months.length - 1, 1);
         this.$emit('previous-month', this.visibleMonths);
       },
-      jumpToMonth: function jumpToMonth(date) {
+      jumpToDate: function jumpToDate(date) {
         var _this2 = this;
 
+        date = '2018-08-01';
         this.startingDate = subMonths(date, 1);
         var month = this.getMonth(date);
         var visibleMonths = this.visibleMonths;
         var firstVisibleMonth = this.getMonth(visibleMonths[0]);
         var difference = month.monthNumber - firstVisibleMonth.monthNumber;
         var differenceRespectingYears = (month.year - firstVisibleMonth.year) * 12 + difference;
-        this.jumpDateIsBefore = differenceRespectingYears < 0;
-        this.$nextTick(function () {
-          _this2.generateMonths();
-        });
+
+        if (this.visibleMonths.indexOf(date) < 0) {
+          this.jumpDateIsBefore = differenceRespectingYears < 0;
+          this.$nextTick(function () {
+            _this2.generateMonths();
+          });
+        }
       },
       nextMonth: function nextMonth() {
         var _this3 = this;
