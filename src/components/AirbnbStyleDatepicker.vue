@@ -83,6 +83,7 @@
       </div>
       <div class="asd__action-buttons" v-if="mode !== 'single' && showActionButtons">
         <button @click="closeDatepickerCancel" type="button">{{ texts.cancel }}</button>
+        <button @click="jumpToDate" type="button">wurst</button>
         <button @click="apply" :style="{color: colors.selected}" type="button">{{ texts.apply }}</button>
       </div>
     </div>
@@ -657,17 +658,21 @@ export default {
       this.months.splice(this.months.length - 1, 1)
       this.$emit('previous-month', this.visibleMonths)
     },
-    jumpToMonth(date) {
+    jumpToDate(date) {
+      date = '2018-08-01'
       this.startingDate = subMonths(date, 1)
       let month = this.getMonth(date)
       let visibleMonths = this.visibleMonths
       let firstVisibleMonth = this.getMonth(visibleMonths[0])
       let difference = month.monthNumber - firstVisibleMonth.monthNumber
       let differenceRespectingYears = (month.year - firstVisibleMonth.year) * 12 + difference
-      this.jumpDateIsBefore = differenceRespectingYears < 0
-      this.$nextTick(() => {
-        this.generateMonths()
-      })
+
+      if (this.visibleMonths.indexOf(date) < 0) {
+        this.jumpDateIsBefore = differenceRespectingYears < 0
+        this.$nextTick(() => {
+          this.generateMonths()
+        })
+      }
     },
     nextMonth() {
       this.jumpDateIsBefore = false
