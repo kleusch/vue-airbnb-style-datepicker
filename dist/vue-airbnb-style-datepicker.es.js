@@ -289,9 +289,12 @@ var AirbnbStyleDatepicker = {
     }, _vm._l(_vm.months, function (month, monthIndex) {
       return _c('div', {
         key: month.firstDateOfMonth,
+        ref: "month",
+        refInFor: true,
         staticClass: "asd__month",
         class: {
-          hidden: monthIndex === 0 || monthIndex > _vm.showMonths
+          'asd__month--hidden': monthIndex === 0 || monthIndex > _vm.showMonths,
+          'animate-rtl': _vm.jumpDateIsBefore
         },
         style: _vm.monthWidthStyles
       }, [_c('div', {
@@ -486,7 +489,8 @@ var AirbnbStyleDatepicker = {
       viewportWidth: window.innerWidth + 'px',
       isMobile: window.innerWidth < 768,
       isTablet: window.innerWidth >= 768 && window.innerWidth <= 1024,
-      triggerElement: undefined
+      triggerElement: undefined,
+      jumpDateIsBefore: false
     };
   },
   computed: {
@@ -906,20 +910,36 @@ var AirbnbStyleDatepicker = {
       return this.holidays && this.holidays.indexOf(date) > -1;
     },
     previousMonth: function previousMonth() {
+      this.jumpDateIsBefore = false;
       this.startingDate = this.subtractMonths(this.months[0].firstDateOfMonth);
       this.months.unshift(this.getMonth(this.startingDate));
       this.months.splice(this.months.length - 1, 1);
       this.$emit('previous-month', this.visibleMonths);
     },
-    nextMonth: function nextMonth() {
+    jumpToMonth: function jumpToMonth(date) {
       var _this2 = this;
 
+      this.startingDate = subMonths(date, 1);
+      var month = this.getMonth(date);
+      var visibleMonths = this.visibleMonths;
+      var firstVisibleMonth = this.getMonth(visibleMonths[0]);
+      var difference = month.monthNumber - firstVisibleMonth.monthNumber;
+      var differenceRespectingYears = (month.year - firstVisibleMonth.year) * 12 + difference;
+      this.jumpDateIsBefore = differenceRespectingYears < 0;
+      this.$nextTick(function () {
+        _this2.generateMonths();
+      });
+    },
+    nextMonth: function nextMonth() {
+      var _this3 = this;
+
+      this.jumpDateIsBefore = false;
       this.startingDate = this.addMonths(this.months[this.months.length - 1].firstDateOfMonth);
       this.months.push(this.getMonth(this.startingDate));
       setTimeout(function () {
-        _this2.months.splice(0, 1);
+        _this3.months.splice(0, 1);
 
-        _this2.$emit('next-month', _this2.visibleMonths);
+        _this3.$emit('next-month', _this3.visibleMonths);
       }, 100);
     },
     subtractMonths: function subtractMonths(date) {

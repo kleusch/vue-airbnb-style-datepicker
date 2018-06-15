@@ -33,7 +33,8 @@
             v-for="(month, monthIndex) in months"
             :key="month.firstDateOfMonth"
             class="asd__month"
-            :class="{hidden: monthIndex === 0 || monthIndex > showMonths}"
+            ref="month"
+            :class="{'asd__month--hidden': monthIndex === 0 || monthIndex > showMonths, 'animate-rtl': jumpDateIsBefore}"
             :style="monthWidthStyles"
           >
             <div class="asd__month-name">{{ month.monthName }} {{ month.year }}</div>
@@ -182,7 +183,8 @@ export default {
       viewportWidth: window.innerWidth + 'px',
       isMobile: window.innerWidth < 768,
       isTablet: window.innerWidth >= 768 && window.innerWidth <= 1024,
-      triggerElement: undefined
+      triggerElement: undefined,
+      jumpDateIsBefore: false
     }
   },
   computed: {
@@ -648,13 +650,27 @@ export default {
       return this.holidays && this.holidays.indexOf(date) > -1
     },
     previousMonth() {
+      this.jumpDateIsBefore = false
       this.startingDate = this.subtractMonths(this.months[0].firstDateOfMonth)
 
       this.months.unshift(this.getMonth(this.startingDate))
       this.months.splice(this.months.length - 1, 1)
       this.$emit('previous-month', this.visibleMonths)
     },
+    jumpToMonth(date) {
+      this.startingDate = subMonths(date, 1)
+      let month = this.getMonth(date)
+      let visibleMonths = this.visibleMonths
+      let firstVisibleMonth = this.getMonth(visibleMonths[0])
+      let difference = month.monthNumber - firstVisibleMonth.monthNumber
+      let differenceRespectingYears = (month.year - firstVisibleMonth.year) * 12 + difference
+      this.jumpDateIsBefore = differenceRespectingYears < 0
+      this.$nextTick(() => {
+        this.generateMonths()
+      })
+    },
     nextMonth() {
+      this.jumpDateIsBefore = false
       this.startingDate = this.addMonths(
         this.months[this.months.length - 1].firstDateOfMonth
       )
