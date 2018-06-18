@@ -4,6 +4,7 @@
       :id="wrapperId"
       class="asd__wrapper"
       v-show="showDatepicker"
+      ref="wrapper"
       :class="wrapperClasses"
       :style="showFullscreen ? undefined : wrapperStyles"
       v-click-outside="handleClickOutside"
@@ -83,7 +84,6 @@
       </div>
       <div class="asd__action-buttons" v-if="mode !== 'single' && showActionButtons">
         <button @click="closeDatepickerCancel" type="button">{{ texts.cancel }}</button>
-        <button @click="jumpToDate" type="button">wurst</button>
         <button @click="apply" :style="{color: colors.selected}" type="button">{{ texts.apply }}</button>
       </div>
     </div>
@@ -185,7 +185,8 @@ export default {
       isMobile: window.innerWidth < 768,
       isTablet: window.innerWidth >= 768 && window.innerWidth <= 1024,
       triggerElement: undefined,
-      jumpDateIsBefore: false
+      jumpDateIsBefore: false,
+      innerStyles: ''
     }
   },
   computed: {
@@ -217,13 +218,6 @@ export default {
           : '',
         width: this.width * this.showMonths + 'px',
         zIndex: this.inline ? '0' : '100'
-      }
-    },
-    innerStyles() {
-      return {
-        'margin-left': this.showFullscreen
-          ? '-' + this.viewportWidth
-          : `-${this.width}px`
       }
     },
     monthWidthStyles() {
@@ -346,6 +340,7 @@ export default {
       ? document.createElement('input')
       : document.getElementById(this.triggerElementId)
 
+    this.innerStyles = this.getInnerStyles()
     this.setStartDates()
     this.generateMonths()
 
@@ -367,6 +362,13 @@ export default {
         width: (this.width - 30) / 7 + 'px'
       }
       return styles
+    },
+    getInnerStyles() {
+      return {
+        'margin-left': this.showFullscreen
+          ? '-' + this.viewportWidth - this.$refs.wrapper.getBoundingClientRect().left
+          : `-${this.width}px`
+      }
     },
     handleClickOutside(event) {
       if (

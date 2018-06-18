@@ -231,6 +231,7 @@ var AirbnbStyleDatepicker = {
         value: _vm.handleClickOutside,
         expression: "handleClickOutside"
       }],
+      ref: "wrapper",
       staticClass: "asd__wrapper",
       class: _vm.wrapperClasses,
       style: _vm.showFullscreen ? undefined : _vm.wrapperStyles,
@@ -370,13 +371,6 @@ var AirbnbStyleDatepicker = {
         "click": _vm.closeDatepickerCancel
       }
     }, [_vm._v(_vm._s(_vm.texts.cancel))]), _vm._v(" "), _c('button', {
-      attrs: {
-        "type": "button"
-      },
-      on: {
-        "click": _vm.jumpToDate
-      }
-    }, [_vm._v("wurst")]), _vm._v(" "), _c('button', {
       style: {
         color: _vm.colors.selected
       },
@@ -501,7 +495,8 @@ var AirbnbStyleDatepicker = {
       isMobile: window.innerWidth < 768,
       isTablet: window.innerWidth >= 768 && window.innerWidth <= 1024,
       triggerElement: undefined,
-      jumpDateIsBefore: false
+      jumpDateIsBefore: false,
+      innerStyles: ''
     };
   },
   computed: {
@@ -521,11 +516,6 @@ var AirbnbStyleDatepicker = {
         right: this.alignRight ? this.triggerWrapperPosition.right - this.triggerPosition.right + this.offsetX + 'px' : '',
         width: this.width * this.showMonths + 'px',
         zIndex: this.inline ? '0' : '100'
-      };
-    },
-    innerStyles: function innerStyles() {
-      return {
-        'margin-left': this.showFullscreen ? '-' + this.viewportWidth : "-".concat(this.width, "px")
       };
     },
     monthWidthStyles: function monthWidthStyles() {
@@ -646,6 +636,7 @@ var AirbnbStyleDatepicker = {
   },
   mounted: function mounted() {
     this.triggerElement = this.isTest ? document.createElement('input') : document.getElementById(this.triggerElementId);
+    this.innerStyles = this.getInnerStyles();
     this.setStartDates();
     this.generateMonths();
 
@@ -666,6 +657,11 @@ var AirbnbStyleDatepicker = {
         width: (this.width - 30) / 7 + 'px'
       };
       return styles;
+    },
+    getInnerStyles: function getInnerStyles() {
+      return {
+        'margin-left': this.showFullscreen ? '-' + this.viewportWidth - this.$refs.wrapper.getBoundingClientRect().left : "-".concat(this.width, "px")
+      };
     },
     handleClickOutside: function handleClickOutside(event) {
       if (event.target.id === this.triggerElementId || !this.showDatepicker || this.inline) {
