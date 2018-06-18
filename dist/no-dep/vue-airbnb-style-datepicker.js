@@ -339,7 +339,6 @@
                 'asd__day--in-range': _vm.isInRange(fullDate),
                 'asd__day--holiday': _vm.isHoliday(fullDate)
               },
-              style: _vm.getDayStyles(fullDate),
               attrs: {
                 "data-date": fullDate
               },
@@ -484,7 +483,7 @@
         },
         startingDate: '',
         months: [],
-        width: 300,
+        width: 100,
         selectedDate1: '',
         selectedDate2: '',
         isSelectingDate1: true,
@@ -497,11 +496,15 @@
         isMobile: window.innerWidth < 768,
         isTablet: window.innerWidth >= 768 && window.innerWidth <= 1024,
         triggerElement: undefined,
-        jumpDateIsBefore: false,
-        innerStyles: ''
+        jumpDateIsBefore: false
       };
     },
     computed: {
+      innerStyles: function innerStyles() {
+        return {
+          'margin-left': this.showFullscreen ? "-".concat(this.width, "%") : "-".concat(this.width / this.showMonths, "%")
+        };
+      },
       wrapperClasses: function wrapperClasses() {
         return {
           'asd__wrapper--datepicker-open': this.showDatepicker,
@@ -516,13 +519,13 @@
           top: this.inline ? '0' : this.triggerPosition.height + this.offsetY + 'px',
           left: !this.alignRight ? this.triggerPosition.left - this.triggerWrapperPosition.left + this.offsetX + 'px' : '',
           right: this.alignRight ? this.triggerWrapperPosition.right - this.triggerPosition.right + this.offsetX + 'px' : '',
-          width: this.width * this.showMonths + 'px',
+          width: this.width + '%',
           zIndex: this.inline ? '0' : '100'
         };
       },
       monthWidthStyles: function monthWidthStyles() {
         return {
-          width: this.showFullscreen ? this.viewportWidth : this.width + 'px'
+          width: this.showFullscreen ? this.width + '%' : this.width / this.showMonths + '%'
         };
       },
       showFullscreen: function showFullscreen() {
@@ -542,9 +545,6 @@
       },
       isSingleMode: function isSingleMode() {
         return this.mode === 'single';
-      },
-      datepickerWidth: function datepickerWidth() {
-        return this.width * this.showMonths;
       },
       datePropsCompound: function datePropsCompound() {
         // used to watch for changes in props, and update GUI accordingly
@@ -638,7 +638,6 @@
     },
     mounted: function mounted() {
       this.triggerElement = this.isTest ? document.createElement('input') : document.getElementById(this.triggerElementId);
-      this.innerStyles = this.getInnerStyles();
       this.setStartDates();
       this.generateMonths();
 
@@ -654,17 +653,6 @@
       this.triggerElement.removeEventListener('keyup', this.handleTriggerInput);
     },
     methods: {
-      getDayStyles: function getDayStyles(date) {
-        var styles = {
-          width: (this.width - 30) / 7 + 'px'
-        };
-        return styles;
-      },
-      getInnerStyles: function getInnerStyles() {
-        return {
-          'margin-left': this.showFullscreen ? '-' + this.viewportWidth - this.$refs.wrapper.getBoundingClientRect().left : "-".concat(this.width, "px")
-        };
-      },
       handleClickOutside: function handleClickOutside(event) {
         if (event.target.id === this.triggerElementId || !this.showDatepicker || this.inline) {
           return;

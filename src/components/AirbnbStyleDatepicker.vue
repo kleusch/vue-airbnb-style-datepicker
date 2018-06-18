@@ -64,7 +64,6 @@
                       'asd__day--in-range': isInRange(fullDate),
                       'asd__day--holiday': isHoliday(fullDate)
                     }"
-                    :style="getDayStyles(fullDate)"
                     @mouseover="() => { setHoverDate(fullDate) }"
                   >
                     <button
@@ -172,7 +171,7 @@ export default {
       },
       startingDate: '',
       months: [],
-      width: 300,
+      width: 100,
       selectedDate1: '',
       selectedDate2: '',
       isSelectingDate1: true,
@@ -185,11 +184,17 @@ export default {
       isMobile: window.innerWidth < 768,
       isTablet: window.innerWidth >= 768 && window.innerWidth <= 1024,
       triggerElement: undefined,
-      jumpDateIsBefore: false,
-      innerStyles: ''
+      jumpDateIsBefore: false
     }
   },
   computed: {
+    innerStyles() {
+      return {
+        'margin-left': this.showFullscreen
+          ? `-${this.width}%`
+          : `-${this.width / this.showMonths}%`
+      }
+    },
     wrapperClasses() {
       return {
         'asd__wrapper--datepicker-open': this.showDatepicker,
@@ -216,13 +221,13 @@ export default {
             this.offsetX +
             'px'
           : '',
-        width: this.width * this.showMonths + 'px',
+        width: this.width + '%',
         zIndex: this.inline ? '0' : '100'
       }
     },
     monthWidthStyles() {
       return {
-        width: this.showFullscreen ? this.viewportWidth : this.width + 'px'
+        width: this.showFullscreen ? this.width + '%' : this.width / this.showMonths + '%'
       }
     },
     showFullscreen() {
@@ -250,9 +255,6 @@ export default {
     },
     isSingleMode() {
       return this.mode === 'single'
-    },
-    datepickerWidth() {
-      return this.width * this.showMonths
     },
     datePropsCompound() {
       // used to watch for changes in props, and update GUI accordingly
@@ -340,7 +342,6 @@ export default {
       ? document.createElement('input')
       : document.getElementById(this.triggerElementId)
 
-    this.innerStyles = this.getInnerStyles()
     this.setStartDates()
     this.generateMonths()
 
@@ -357,19 +358,6 @@ export default {
     this.triggerElement.removeEventListener('keyup', this.handleTriggerInput)
   },
   methods: {
-    getDayStyles(date) {
-      let styles = {
-        width: (this.width - 30) / 7 + 'px'
-      }
-      return styles
-    },
-    getInnerStyles() {
-      return {
-        'margin-left': this.showFullscreen
-          ? '-' + this.viewportWidth - this.$refs.wrapper.getBoundingClientRect().left
-          : `-${this.width}px`
-      }
-    },
     handleClickOutside(event) {
       if (
         event.target.id === this.triggerElementId ||
@@ -772,6 +760,7 @@ export default {
 <style lang="scss">
 @import './../styles/transitions';
 
+$default-width: 800px;
 $tablet: 768px;
 $color-gray: rgba(0, 0, 0, 0.2);
 $border-normal: 1px solid $color-gray;
@@ -796,6 +785,7 @@ $transition-time: 0.3s;
     text-align: center;
     overflow: hidden;
     background-color: white;
+    max-width: $default-width;
 
     &--full-screen {
       position: fixed;
@@ -810,6 +800,7 @@ $transition-time: 0.3s;
   &__inner-wrapper {
     transition: all $transition-time ease;
     position: relative;
+    max-width: 100%;
   }
   &__datepicker-header {
     position: relative;
@@ -886,6 +877,7 @@ $transition-time: 0.3s;
     height: $size;
     padding: 0;
     overflow: hidden;
+    width: calc(100% / 7);
 
     &--enabled {
       border: $border;
