@@ -64,6 +64,7 @@
                       'asd__day--in-range': isInRange(fullDate),
                       'asd__day--holiday': isHoliday(fullDate)
                     }"
+                    :title="getHolidayName(fullDate)"
                     @mouseover="() => { setHoverDate(fullDate) }"
                   >
                     <button
@@ -638,7 +639,10 @@ export default {
       )
     },
     isHoliday(date) {
-      return this.holidays && this.holidays.indexOf(date) > -1
+      return this.holidays && (date in this.holidays)
+    },
+    getHolidayName(date) {
+      return this.holidays[date]
     },
     previousMonth() {
       this.jumpDateIsBefore = false

@@ -340,7 +340,8 @@
                 'asd__day--holiday': _vm.isHoliday(fullDate)
               },
               attrs: {
-                "data-date": fullDate
+                "data-date": fullDate,
+                "title": _vm.getHolidayName(fullDate)
               },
               on: {
                 "mouseover": function mouseover() {
@@ -904,7 +905,10 @@
         return !this.isDisabled(date) && this.dayNumber !== 0 && !this.isSelected(date) && !this.isInRange(date);
       },
       isHoliday: function isHoliday(date) {
-        return this.holidays && this.holidays.indexOf(date) > -1;
+        return this.holidays && date in this.holidays;
+      },
+      getHolidayName: function getHolidayName(date) {
+        return this.holidays[date];
       },
       previousMonth: function previousMonth() {
         this.jumpDateIsBefore = false;
