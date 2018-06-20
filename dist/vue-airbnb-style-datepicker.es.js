@@ -328,8 +328,8 @@ var AirbnbStyleDatepicker = {
               'asd__day--default': _vm.isDefault(fullDate) || _vm.initial,
               'asd__day--disabled': _vm.isDisabled(fullDate),
               'asd__day--selected': _vm.selectedDate1 === fullDate || _vm.selectedDate2 === fullDate,
-              'asd__day--selected-date-one': _vm.selectedDate1 === fullDate,
-              'asd__day--selected-date-two': _vm.selectedDate2 === fullDate,
+              'asd__day--selected-date-one': _vm.selectedDate1 === fullDate && _vm.isRangeMode,
+              'asd__day--selected-date-two': _vm.selectedDate2 === fullDate && _vm.isRangeMode,
               'asd__day--in-range': _vm.isInRange(fullDate),
               'asd__day--holiday': _vm.isHoliday(fullDate)
             },
@@ -505,7 +505,8 @@ var AirbnbStyleDatepicker = {
         'asd__wrapper--datepicker-open': this.showDatepicker,
         'asd__wrapper--full-screen': this.showFullscreen,
         'asd__wrapper--inline': this.inline,
-        'asd__wrapper--initial': this.initial
+        'asd__wrapper--initial': this.initial,
+        'asd__wrapper--single': this.isSingleMode
       };
     },
     wrapperStyles: function wrapperStyles() {
@@ -879,7 +880,7 @@ var AirbnbStyleDatepicker = {
       return isBefore(date, this.minDate);
     },
     isBeforeSelectedDate1WhileSelectingDate2: function isBeforeSelectedDate1WhileSelectingDate2(date) {
-      return isBefore(date, this.selectedDate1) && (!this.selectedDate2 || !this.isSelectingDate1);
+      return this.isRangeMode && isBefore(date, this.selectedDate1) && (!this.selectedDate2 || !this.isSelectingDate1);
     },
     isAfterEndDate: function isAfterEndDate(date) {
       if (!this.endDate) {

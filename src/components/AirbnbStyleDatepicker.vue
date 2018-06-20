@@ -59,8 +59,8 @@
                       'asd__day--default': isDefault(fullDate) || initial,
                       'asd__day--disabled': isDisabled(fullDate),
                       'asd__day--selected': selectedDate1 === fullDate || selectedDate2 === fullDate,
-                      'asd__day--selected-date-one': selectedDate1 === fullDate,
-                      'asd__day--selected-date-two': selectedDate2 === fullDate,
+                      'asd__day--selected-date-one': selectedDate1 === fullDate && isRangeMode,
+                      'asd__day--selected-date-two': selectedDate2 === fullDate && isRangeMode,
                       'asd__day--in-range': isInRange(fullDate),
                       'asd__day--holiday': isHoliday(fullDate)
                     }"
@@ -201,7 +201,8 @@ export default {
         'asd__wrapper--datepicker-open': this.showDatepicker,
         'asd__wrapper--full-screen': this.showFullscreen,
         'asd__wrapper--inline': this.inline,
-        'asd__wrapper--initial': this.initial
+        'asd__wrapper--initial': this.initial,
+        'asd__wrapper--single': this.isSingleMode
       }
     },
     wrapperStyles() {
@@ -609,7 +610,8 @@ export default {
       return isBefore(date, this.minDate)
     },
     isBeforeSelectedDate1WhileSelectingDate2(date) {
-      return isBefore(date, this.selectedDate1) &&
+      return this.isRangeMode &&
+             isBefore(date, this.selectedDate1) &&
              (!this.selectedDate2 || !this.isSelectingDate1)
     },
     isAfterEndDate(date) {
