@@ -326,6 +326,7 @@ export default {
     }
 
     this._handleWindowResizeEvent = debounce(() => {
+      this.generateMonths()
       this.positionDatepicker()
       this.setStartDates()
     }, 200)
@@ -644,7 +645,7 @@ export default {
       return this.holidays && (date in this.holidays)
     },
     getHolidayName(date) {
-      return this.holidays[date]
+      return this.holidays && this.holidays[date]
     },
     previousMonth() {
       this.jumpDateIsBefore = false

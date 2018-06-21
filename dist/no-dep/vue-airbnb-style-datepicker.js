@@ -621,6 +621,8 @@
       }
 
       this._handleWindowResizeEvent = debounce(function () {
+        _this.generateMonths();
+
         _this.positionDatepicker();
 
         _this.setStartDates();
@@ -909,7 +911,7 @@
         return this.holidays && date in this.holidays;
       },
       getHolidayName: function getHolidayName(date) {
-        return this.holidays[date];
+        return this.holidays && this.holidays[date];
       },
       previousMonth: function previousMonth() {
         this.jumpDateIsBefore = false;
