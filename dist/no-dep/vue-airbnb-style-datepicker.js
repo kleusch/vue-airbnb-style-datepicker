@@ -331,7 +331,7 @@
               class: {
                 'asd__day--enabled': dayNumber !== 0,
                 'asd__day--empty': dayNumber === 0,
-                'asd__day--default': _vm.isDefault(fullDate) || _vm.initial,
+                'asd__day--default': _vm.isDefault(fullDate) || _vm.initial && !_vm.isDisabled(fullDate),
                 'asd__day--disabled': _vm.isDisabled(fullDate),
                 'asd__day--selected': _vm.selectedDate1 === fullDate || _vm.selectedDate2 === fullDate,
                 'asd__day--selected-date-one': _vm.selectedDate1 === fullDate && _vm.isRangeMode,
@@ -848,6 +848,11 @@
         }
 
         if (this.selectedDate1 && this.selectedDate2 && this.isSelectingDate1) {
+          if (this.selectedDate1 === date) {
+            // if dates are equal, the watcher doesn't get called, so we emit here.
+            this.$emit('date-one-selected', date);
+          }
+
           this.selectedDate1 = '';
           this.selectedDate2 = '';
         }

@@ -2170,6 +2170,11 @@
         }
 
         if (this.selectedDate1 && this.selectedDate2 && this.isSelectingDate1) {
+          if (this.selectedDate1 === date) {
+            // if dates are equal, the watcher doesn't get called, so we emit here.
+            this.$emit('date-one-selected', date);
+          }
+
           this.selectedDate1 = '';
           this.selectedDate2 = '';
         }
