@@ -1779,10 +1779,6 @@
       },
       holidays: {
         type: Array
-      },
-      visibleMonths: {
-        type: Number,
-        default: 2
       }
     },
     data: function data() {
@@ -1790,7 +1786,7 @@
         wrapperId: 'airbnb-style-datepicker-wrapper-' + randomString(5),
         dateFormat: 'YYYY-MM-DD',
         showDatepicker: false,
-        showMonths: this.visibleMonths,
+        showMonths: 2,
         colors: {
           selected: '#00a699',
           inRange: '#66e2da',
@@ -2087,8 +2083,10 @@
           this.texts.cancel = texts.cancel || this.texts.cancel;
         }
 
+        console.log(this.$options.visibleMonths);
+
         if (this.$options.visibleMonths) {
-          this.showMonths = this.visibleMonths;
+          this.showMonths = this.$options.visibleMonths;
         }
       },
       setStartDates: function setStartDates() {

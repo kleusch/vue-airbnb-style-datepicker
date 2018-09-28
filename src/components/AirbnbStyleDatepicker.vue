@@ -124,15 +124,14 @@ export default {
       default: () => process.env.NODE_ENV === 'test'
     },
     trigger: { type: Boolean, default: false },
-    holidays: { type: Array },
-    visibleMonths: {type: Number, default: 2}
+    holidays: { type: Array }
   },
   data() {
     return {
       wrapperId: 'airbnb-style-datepicker-wrapper-' + randomString(5),
       dateFormat: 'YYYY-MM-DD',
       showDatepicker: false,
-      showMonths: this.visibleMonths,
+      showMonths: 2,
       colors: {
         selected: '#00a699',
         inRange: '#66e2da',
@@ -484,8 +483,9 @@ export default {
         this.texts.apply = texts.apply || this.texts.apply
         this.texts.cancel = texts.cancel || this.texts.cancel
       }
+      console.log(this.$options.visibleMonths);
       if (this.$options.visibleMonths) {
-        this.showMonths = this.visibleMonths
+        this.showMonths = this.$options.visibleMonths
       }
     },
     setStartDates() {
