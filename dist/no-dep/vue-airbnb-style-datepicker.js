@@ -458,7 +458,7 @@
       holidays: {
         type: Array
       },
-      showMonths: {
+      visibleMonths: {
         type: Number,
         default: 2
       }
@@ -468,6 +468,7 @@
         wrapperId: 'airbnb-style-datepicker-wrapper-' + randomString(5),
         dateFormat: 'YYYY-MM-DD',
         showDatepicker: false,
+        showMonths: this.visibleMonths,
         colors: {
           selected: '#00a699',
           inRange: '#66e2da',

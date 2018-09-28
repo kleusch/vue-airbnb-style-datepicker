@@ -125,13 +125,14 @@ export default {
     },
     trigger: { type: Boolean, default: false },
     holidays: { type: Array },
-    showMonths: {type: Number, default: 2}
+    visibleMonths: {type: Number, default: 2}
   },
   data() {
     return {
       wrapperId: 'airbnb-style-datepicker-wrapper-' + randomString(5),
       dateFormat: 'YYYY-MM-DD',
       showDatepicker: false,
+      showMonths: this.visibleMonths,
       colors: {
         selected: '#00a699',
         inRange: '#66e2da',
