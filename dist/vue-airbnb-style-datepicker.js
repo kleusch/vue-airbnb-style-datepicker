@@ -2086,6 +2086,10 @@
           this.texts.apply = texts.apply || this.texts.apply;
           this.texts.cancel = texts.cancel || this.texts.cancel;
         }
+
+        if (this.$options.visibleMonths) {
+          this.showMonths = this.visibleMonths;
+        }
       },
       setStartDates: function setStartDates() {
         var startDate = this.dateOne || new Date();
