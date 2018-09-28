@@ -451,6 +451,10 @@ var AirbnbStyleDatepicker = {
     },
     holidays: {
       type: Array
+    },
+    showMonths: {
+      type: Number,
+      default: 2
     }
   },
   data: function data() {
@@ -458,7 +462,6 @@ var AirbnbStyleDatepicker = {
       wrapperId: 'airbnb-style-datepicker-wrapper-' + randomString(5),
       dateFormat: 'YYYY-MM-DD',
       showDatepicker: false,
-      showMonths: 2,
       colors: {
         selected: '#00a699',
         inRange: '#66e2da',

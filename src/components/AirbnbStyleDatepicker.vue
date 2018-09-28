@@ -124,14 +124,14 @@ export default {
       default: () => process.env.NODE_ENV === 'test'
     },
     trigger: { type: Boolean, default: false },
-    holidays: { type: Array }
+    holidays: { type: Array },
+    showMonths: {type: Number, default: 2}
   },
   data() {
     return {
       wrapperId: 'airbnb-style-datepicker-wrapper-' + randomString(5),
       dateFormat: 'YYYY-MM-DD',
       showDatepicker: false,
-      showMonths: 2,
       colors: {
         selected: '#00a699',
         inRange: '#66e2da',
