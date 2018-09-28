@@ -484,6 +484,9 @@ export default {
         this.texts.apply = texts.apply || this.texts.apply
         this.texts.cancel = texts.cancel || this.texts.cancel
       }
+      if (this.$options.visibleMonths) {
+        this.showMonths = this.visibleMonths
+      }
     },
     setStartDates() {
       let startDate = this.dateOne || new Date()
