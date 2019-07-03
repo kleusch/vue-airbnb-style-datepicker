@@ -99,9 +99,13 @@ import isBefore from 'date-fns/is_before'
 import isAfter from 'date-fns/is_after'
 import isValid from 'date-fns/is_valid'
 import { debounce, copyObject, findAncestor, randomString } from './../helpers'
+import ClickOutside from '/directives/ClickOutside'
 
 export default {
   name: 'AirbnbStyleDatepicker',
+  directives: {
+    ClickOutside
+  },
   props: {
     triggerElementId: { type: String },
     dateOne: { type: [String, Date], default: format(new Date()) },

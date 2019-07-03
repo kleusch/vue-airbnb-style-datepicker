@@ -1,11 +1,8 @@
 import './polyfills'
 import AirbnbStyleDatepicker from './components/AirbnbStyleDatepicker.vue'
-import ClickOutside from './directives/ClickOutside'
 
 const AirbnbStyleDatepickerPlugin = {
   install(Vue, options) {
-    Vue.directive('click-outside', ClickOutside)
-
     Vue.component(AirbnbStyleDatepicker.name, {
       ...options,
       ...AirbnbStyleDatepicker
