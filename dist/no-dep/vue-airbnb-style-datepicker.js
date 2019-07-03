@@ -1,8 +1,8 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('date-fns/format'), require('date-fns/sub_months'), require('date-fns/add_months'), require('date-fns/get_days_in_month'), require('date-fns/is_before'), require('date-fns/is_after'), require('date-fns/is_valid'), require('../../../directives/ClickOutside')) :
-  typeof define === 'function' && define.amd ? define(['date-fns/format', 'date-fns/sub_months', 'date-fns/add_months', 'date-fns/get_days_in_month', 'date-fns/is_before', 'date-fns/is_after', 'date-fns/is_valid', '../../../directives/ClickOutside'], factory) :
-  (global.vueAirbnbStyleDatepicker = factory(global.dateFns.format,global.dateFns.subMonths,global.dateFns.addMonths,global.dateFns.getDaysInMonth,global.dateFns.isBefore,global.dateFns.isAfter,global.dateFns.isValid,global.ClickOutside));
-}(this, (function (format,subMonths,_addMonths,getDaysInMonth,isBefore,isAfter,isValid,ClickOutside) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('date-fns/format'), require('date-fns/sub_months'), require('date-fns/add_months'), require('date-fns/get_days_in_month'), require('date-fns/is_before'), require('date-fns/is_after'), require('date-fns/is_valid')) :
+  typeof define === 'function' && define.amd ? define(['date-fns/format', 'date-fns/sub_months', 'date-fns/add_months', 'date-fns/get_days_in_month', 'date-fns/is_before', 'date-fns/is_after', 'date-fns/is_valid'], factory) :
+  (global.vueAirbnbStyleDatepicker = factory(global.dateFns.format,global.dateFns.subMonths,global.dateFns.addMonths,global.dateFns.getDaysInMonth,global.dateFns.isBefore,global.dateFns.isAfter,global.dateFns.isValid));
+}(this, (function (format,subMonths,_addMonths,getDaysInMonth,isBefore,isAfter,isValid) { 'use strict';
 
   format = format && format.hasOwnProperty('default') ? format['default'] : format;
   subMonths = subMonths && subMonths.hasOwnProperty('default') ? subMonths['default'] : subMonths;
@@ -11,7 +11,6 @@
   isBefore = isBefore && isBefore.hasOwnProperty('default') ? isBefore['default'] : isBefore;
   isAfter = isAfter && isAfter.hasOwnProperty('default') ? isAfter['default'] : isAfter;
   isValid = isValid && isValid.hasOwnProperty('default') ? isValid['default'] : isValid;
-  ClickOutside = ClickOutside && ClickOutside.hasOwnProperty('default') ? ClickOutside['default'] : ClickOutside;
 
   function _defineProperty(obj, key, value) {
     if (key in obj) {
@@ -208,6 +207,23 @@
     }
 
     return text;
+  };
+
+  var ClickOutside = {
+    bind: function bind(el, binding, vnode) {
+      el.event = function (event) {
+        if (!(el === event.target || el.contains(event.target))) {
+          vnode.context[binding.expression](event);
+        }
+      };
+
+      document.body.addEventListener('click', el.event);
+      document.body.addEventListener('touchstart', el.event);
+    },
+    unbind: function unbind(el) {
+      document.body.removeEventListener('click', el.event);
+      document.body.removeEventListener('touchstart', el.event);
+    }
   };
 
   var AirbnbStyleDatepicker = {

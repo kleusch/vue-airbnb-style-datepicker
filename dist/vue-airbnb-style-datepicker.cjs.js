@@ -9,7 +9,6 @@ var getDaysInMonth = _interopDefault(require('date-fns/get_days_in_month'));
 var isBefore = _interopDefault(require('date-fns/is_before'));
 var isAfter = _interopDefault(require('date-fns/is_after'));
 var isValid = _interopDefault(require('date-fns/is_valid'));
-var ClickOutside = _interopDefault(require('../../../directives/ClickOutside'));
 
 function _defineProperty(obj, key, value) {
   if (key in obj) {
@@ -206,6 +205,23 @@ var randomString = function randomString(length) {
   }
 
   return text;
+};
+
+var ClickOutside = {
+  bind: function bind(el, binding, vnode) {
+    el.event = function (event) {
+      if (!(el === event.target || el.contains(event.target))) {
+        vnode.context[binding.expression](event);
+      }
+    };
+
+    document.body.addEventListener('click', el.event);
+    document.body.addEventListener('touchstart', el.event);
+  },
+  unbind: function unbind(el) {
+    document.body.removeEventListener('click', el.event);
+    document.body.removeEventListener('touchstart', el.event);
+  }
 };
 
 var AirbnbStyleDatepicker = {
