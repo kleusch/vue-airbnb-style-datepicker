@@ -1,8 +1,10 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-  typeof define === 'function' && define.amd ? define(factory) :
-  (global.vueAirbnbStyleDatepicker = factory());
-}(this, (function () { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('../../../directives/ClickOutside')) :
+  typeof define === 'function' && define.amd ? define(['../../../directives/ClickOutside'], factory) :
+  (global.vueAirbnbStyleDatepicker = factory(global.ClickOutside));
+}(this, (function (ClickOutside) { 'use strict';
+
+  ClickOutside = ClickOutside && ClickOutside.hasOwnProperty('default') ? ClickOutside['default'] : ClickOutside;
 
   function _defineProperty(obj, key, value) {
     if (key in obj) {
@@ -1708,6 +1710,9 @@
     },
     staticRenderFns: [],
     name: 'AirbnbStyleDatepicker',
+    directives: {
+      ClickOutside: ClickOutside
+    },
     props: {
       triggerElementId: {
         type: String
@@ -2364,26 +2369,8 @@
     }
   };
 
-  var ClickOutside = {
-    bind: function bind(el, binding, vnode) {
-      el.event = function (event) {
-        if (!(el === event.target || el.contains(event.target))) {
-          vnode.context[binding.expression](event);
-        }
-      };
-
-      document.body.addEventListener('click', el.event);
-      document.body.addEventListener('touchstart', el.event);
-    },
-    unbind: function unbind(el) {
-      document.body.removeEventListener('click', el.event);
-      document.body.removeEventListener('touchstart', el.event);
-    }
-  };
-
   var AirbnbStyleDatepickerPlugin = {
     install: function install(Vue, options) {
-      Vue.directive('click-outside', ClickOutside);
       Vue.component(AirbnbStyleDatepicker.name, _objectSpread({}, options, AirbnbStyleDatepicker));
     }
   }; // User has to install the component by themselves, to allow to pass options
