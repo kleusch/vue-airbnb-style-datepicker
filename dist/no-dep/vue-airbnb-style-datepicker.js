@@ -606,13 +606,17 @@
         }
       },
       trigger: function trigger(newValue, oldValue) {
+        var _this = this;
+
         if (newValue) {
-          this.openDatepicker();
+          setTimeout(function () {
+            _this.openDatepicker();
+          }, 0);
         }
       }
     },
     created: function created() {
-      var _this = this;
+      var _this2 = this;
 
       this.setupDatepicker();
 
@@ -621,19 +625,19 @@
       }
 
       this._handleWindowResizeEvent = debounce(function () {
-        _this.generateMonths();
+        _this2.generateMonths();
 
-        _this.positionDatepicker();
+        _this2.positionDatepicker();
 
-        _this.setStartDates();
+        _this2.setStartDates();
       }, 200);
 
       this._handleWindowClickEvent = function (event) {
-        if (event.target.id === _this.triggerElementId) {
+        if (event.target.id === _this2.triggerElementId) {
           event.stopPropagation();
           event.preventDefault();
 
-          _this.toggleDatepicker();
+          _this2.toggleDatepicker();
         }
       };
 
@@ -932,7 +936,7 @@
         this.$emit('previous-month', this.visibleMonths);
       },
       jumpToDate: function jumpToDate(date) {
-        var _this2 = this;
+        var _this3 = this;
 
         this.startingDate = subMonths(date, 1);
         var month = this.getMonth(date);
@@ -944,20 +948,20 @@
         if (this.visibleMonths.indexOf(date) < 0) {
           this.jumpDateIsBefore = differenceRespectingYears < 0;
           this.$nextTick(function () {
-            _this2.generateMonths();
+            _this3.generateMonths();
           });
         }
       },
       nextMonth: function nextMonth() {
-        var _this3 = this;
+        var _this4 = this;
 
         this.jumpDateIsBefore = false;
         this.startingDate = this.addMonths(this.months[this.months.length - 1].firstDateOfMonth);
         this.months.push(this.getMonth(this.startingDate));
         setTimeout(function () {
-          _this3.months.splice(0, 1);
+          _this4.months.splice(0, 1);
 
-          _this3.$emit('next-month', _this3.visibleMonths);
+          _this4.$emit('next-month', _this4.visibleMonths);
         }, 100);
       },
       subtractMonths: function subtractMonths(date) {
